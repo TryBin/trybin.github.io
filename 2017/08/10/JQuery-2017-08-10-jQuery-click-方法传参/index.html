@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） #1  .click()方法简介  123451.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function2.click( [eve">
+<meta name="description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） 1 .click()方法简介12345.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function.click( [eventData">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jQuery的.click方法传参">
 <meta property="og:url" content="http://yoursite.com/2017/08/10/JQuery-2017-08-10-jQuery-click-方法传参/index.html">
 <meta property="og:site_name" content="Try&#39;s Note">
-<meta property="og:description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） #1  .click()方法简介  123451.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function2.click( [eve">
+<meta property="og:description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） 1 .click()方法简介12345.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function.click( [eventData">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T05:57:55.785Z">
+<meta property="og:updated_time" content="2018-04-19T06:02:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jQuery的.click方法传参">
-<meta name="twitter:description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） #1  .click()方法简介  123451.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function2.click( [eve">
+<meta name="twitter:description" content="今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！） 1 .click()方法简介12345.click( handler ) //1.0版本的.click，	              //handler（Function 类型)，只要事件被触发,就会执行该function.click( [eventData">
 
 
 
@@ -342,8 +342,7 @@
 
       
         <p>今天写东西，要在jQuery 的.click方法里传参，查阅了一下jQuery的官方文档，做了下实验和总结（原谅我的前端 是用一点学一点！）</p>
-<p>#1  .click()方法简介 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>click( handler ) <span class="comment">//1.0版本的.click，</span></span><br><span class="line">	              <span class="comment">//handler（Function 类型)，只要事件被触发,就会执行该function</span></span><br><span class="line"><span class="number">2.</span>click( [eventData ], handler )<span class="comment">//1.4.3版本加入的</span></span><br><span class="line">                                 <span class="comment">//参数eventData:可以为任何数据类型，保存在event.data中，event为handler的一个事件参数</span></span><br><span class="line">                                 <span class="comment">//参数handler，为Function类型，例：function(event)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="1-click-方法简介"><a href="#1-click-方法简介" class="headerlink" title="1 .click()方法简介"></a>1 .click()方法简介</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.click( handler ) <span class="comment">//1.0版本的.click，</span></span><br><span class="line">	              <span class="comment">//handler（Function 类型)，只要事件被触发,就会执行该function</span></span><br><span class="line">.click( [eventData ], handler )<span class="comment">//1.4.3版本加入的</span></span><br><span class="line">                                 <span class="comment">//参数eventData:可以为任何数据类型，保存在event.data中，event为handler的一个事件参数</span></span><br><span class="line">                                 <span class="comment">//参数handler，为Function类型，例：function(event)&#123;&#125;</span></span><br></pre></td></tr></table></figure>
 <p>#2.  写段代码测试一下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">      $(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">       $(<span class="string">"#btn"</span>).click(<span class="string">"测试数据"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span></span><br><span class="line"><span class="undefined">         alert(event.data);</span></span><br><span class="line"><span class="undefined">       &#125;)</span></span><br><span class="line"><span class="undefined">      &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>浏览器打开网页，单击click会发现 弹出   “测试数据” 。</p>
 
@@ -432,8 +431,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,6 +498,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-click-方法简介"><span class="nav-number">1.</span> <span class="nav-text">1 .click()方法简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pass-exit-codes在某一阶段退出时返回其中最高的错误码。–help显示此帮助说明。–target-help显示目标机器特定的命令行选项。–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。–vers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gcc常用命令">
+<meta property="og:url" content="http://yoursite.com/2017/10/01/Linux-C-2017-10-01-gcc常用命令/index.html">
+<meta property="og:site_name" content="Try&#39;s Note">
+<meta property="og:description" content="pass-exit-codes在某一阶段退出时返回其中最高的错误码。–help显示此帮助说明。–target-help显示目标机器特定的命令行选项。–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。–vers">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-19T03:01:05.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gcc常用命令">
+<meta name="twitter:description" content="pass-exit-codes在某一阶段退出时返回其中最高的错误码。–help显示此帮助说明。–target-help显示目标机器特定的命令行选项。–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。–vers">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/01/Linux-C-2017-10-01-gcc常用命令/"/>
+
+
+
+
+
+  <title>gcc常用命令 | Try's Note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Try's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<div>
+</div
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/01/Linux-C-2017-10-01-gcc常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Try">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Try's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gcc常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T00:00:00+08:00">
+                2017-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="pass-exit-codes"><a href="#pass-exit-codes" class="headerlink" title="pass-exit-codes"></a>pass-exit-codes</h3><h4 id="在某一阶段退出时返回其中最高的错误码。"><a href="#在某一阶段退出时返回其中最高的错误码。" class="headerlink" title="在某一阶段退出时返回其中最高的错误码。"></a>在某一阶段退出时返回其中最高的错误码。</h4><h3 id="–help"><a href="#–help" class="headerlink" title="–help"></a>–help</h3><h4 id="显示此帮助说明。"><a href="#显示此帮助说明。" class="headerlink" title="显示此帮助说明。"></a>显示此帮助说明。</h4><h3 id="–target-help"><a href="#–target-help" class="headerlink" title="–target-help"></a>–target-help</h3><h4 id="显示目标机器特定的命令行选项。"><a href="#显示目标机器特定的命令行选项。" class="headerlink" title="显示目标机器特定的命令行选项。"></a>显示目标机器特定的命令行选项。</h4><h3 id="–help-common-optimizers-params-targetwarnings-joined-separate-undocumented-。"><a href="#–help-common-optimizers-params-targetwarnings-joined-separate-undocumented-。" class="headerlink" title="–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。"></a>–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。</h3><h4 id="显示特定类型的命令行选项。（使用‘-v-–help’显示子进程的命令行参数）。"><a href="#显示特定类型的命令行选项。（使用‘-v-–help’显示子进程的命令行参数）。" class="headerlink" title="显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。"></a>显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。</h4><h3 id="–version"><a href="#–version" class="headerlink" title="–version"></a>–version</h3><h4 id="显示编译器版本信息。"><a href="#显示编译器版本信息。" class="headerlink" title="显示编译器版本信息。"></a>显示编译器版本信息。</h4><h3 id="dumpspecs"><a href="#dumpspecs" class="headerlink" title="-dumpspecs"></a>-dumpspecs</h3><h4 id="显示所有内建-spec-字符串。"><a href="#显示所有内建-spec-字符串。" class="headerlink" title="显示所有内建 spec 字符串。"></a>显示所有内建 spec 字符串。</h4><h3 id="dumpversion"><a href="#dumpversion" class="headerlink" title="-dumpversion"></a>-dumpversion</h3><h4 id="显示编译器的版本号。"><a href="#显示编译器的版本号。" class="headerlink" title="显示编译器的版本号。"></a>显示编译器的版本号。</h4><h3 id="dumpmachine"><a href="#dumpmachine" class="headerlink" title="-dumpmachine"></a>-dumpmachine</h3><h4 id="显示编译器的目标处理器。"><a href="#显示编译器的目标处理器。" class="headerlink" title="显示编译器的目标处理器。"></a>显示编译器的目标处理器。</h4><h3 id="print-search-dirs"><a href="#print-search-dirs" class="headerlink" title="-print-search-dirs"></a>-print-search-dirs</h3><h4 id="显示编译器的搜索路径。"><a href="#显示编译器的搜索路径。" class="headerlink" title="显示编译器的搜索路径。"></a>显示编译器的搜索路径。</h4><h3 id="print-libgcc-file-name"><a href="#print-libgcc-file-name" class="headerlink" title="-print-libgcc-file-name"></a>-print-libgcc-file-name</h3><h4 id="显示编译器伴随库的名称。"><a href="#显示编译器伴随库的名称。" class="headerlink" title="显示编译器伴随库的名称。"></a>显示编译器伴随库的名称。</h4><h3 id="print-file-name-lt-库-gt"><a href="#print-file-name-lt-库-gt" class="headerlink" title="-print-file-name=&lt;库&gt;"></a>-print-file-name=&lt;库&gt;</h3><h4 id="显示-lt-库-gt-的完整路径。"><a href="#显示-lt-库-gt-的完整路径。" class="headerlink" title="显示 &lt;库&gt; 的完整路径。"></a>显示 &lt;库&gt; 的完整路径。</h4><h3 id="print-prog-name-lt-程序-gt"><a href="#print-prog-name-lt-程序-gt" class="headerlink" title="-print-prog-name=&lt;程序&gt;"></a>-print-prog-name=&lt;程序&gt;</h3><h4 id="显示编译器组件-lt-程序-gt-的完整路径。"><a href="#显示编译器组件-lt-程序-gt-的完整路径。" class="headerlink" title="显示编译器组件 &lt;程序&gt; 的完整路径。"></a>显示编译器组件 &lt;程序&gt; 的完整路径。</h4><h3 id="print-multiarch"><a href="#print-multiarch" class="headerlink" title="-print-multiarch"></a>-print-multiarch</h3><h4 id="显示目标的标准-GNU-三元组（被用于库路径的一部分）。"><a href="#显示目标的标准-GNU-三元组（被用于库路径的一部分）。" class="headerlink" title="显示目标的标准 GNU 三元组（被用于库路径的一部分）。"></a>显示目标的标准 GNU 三元组（被用于库路径的一部分）。</h4><h3 id="print-multi-directory"><a href="#print-multi-directory" class="headerlink" title="-print-multi-directory"></a>-print-multi-directory</h3><h4 id="显示不同版本-libgcc-的根目录。"><a href="#显示不同版本-libgcc-的根目录。" class="headerlink" title="显示不同版本 libgcc 的根目录。"></a>显示不同版本 libgcc 的根目录。</h4><h3 id="print-multi-lib"><a href="#print-multi-lib" class="headerlink" title="-print-multi-lib"></a>-print-multi-lib</h3><h4 id="显示命令行选项和多个版本库搜索路径间的映射。"><a href="#显示命令行选项和多个版本库搜索路径间的映射。" class="headerlink" title="显示命令行选项和多个版本库搜索路径间的映射。"></a>显示命令行选项和多个版本库搜索路径间的映射。</h4><h3 id="print-multi-os-directory"><a href="#print-multi-os-directory" class="headerlink" title="-print-multi-os-directory"></a>-print-multi-os-directory</h3><h4 id="显示操作系统库的相对路径。"><a href="#显示操作系统库的相对路径。" class="headerlink" title="显示操作系统库的相对路径。"></a>显示操作系统库的相对路径。</h4><h3 id="print-sysroot"><a href="#print-sysroot" class="headerlink" title="-print-sysroot"></a>-print-sysroot</h3><h4 id="显示目标库目录。"><a href="#显示目标库目录。" class="headerlink" title="显示目标库目录。"></a>显示目标库目录。</h4><h3 id="print-sysroot-headers-suffix"><a href="#print-sysroot-headers-suffix" class="headerlink" title="-print-sysroot-headers-suffix"></a>-print-sysroot-headers-suffix</h3><h4 id="显示用于寻找头文件的-sysroot-后缀。"><a href="#显示用于寻找头文件的-sysroot-后缀。" class="headerlink" title="显示用于寻找头文件的 sysroot 后缀。"></a>显示用于寻找头文件的 sysroot 后缀。</h4><h3 id="Wa-lt-选项-gt"><a href="#Wa-lt-选项-gt" class="headerlink" title="-Wa,&lt;选项&gt;"></a>-Wa,&lt;选项&gt;</h3><h4 id="将逗号分隔的-lt-选项-gt-传递给汇编器。"><a href="#将逗号分隔的-lt-选项-gt-传递给汇编器。" class="headerlink" title="将逗号分隔的 &lt;选项&gt; 传递给汇编器。"></a>将逗号分隔的 &lt;选项&gt; 传递给汇编器。</h4><h3 id="Wp-lt-选项-gt"><a href="#Wp-lt-选项-gt" class="headerlink" title="-Wp,&lt;选项&gt;"></a>-Wp,&lt;选项&gt;</h3><h4 id="将逗号分隔的-lt-选项-gt-传递给预处理器。"><a href="#将逗号分隔的-lt-选项-gt-传递给预处理器。" class="headerlink" title="将逗号分隔的 &lt;选项&gt; 传递给预处理器。"></a>将逗号分隔的 &lt;选项&gt; 传递给预处理器。</h4><h3 id="Wl-lt-选项-gt"><a href="#Wl-lt-选项-gt" class="headerlink" title="-Wl,&lt;选项&gt;"></a>-Wl,&lt;选项&gt;</h3><h4 id="将逗号分隔的-lt-选项-gt-传递给链接器。"><a href="#将逗号分隔的-lt-选项-gt-传递给链接器。" class="headerlink" title="将逗号分隔的 &lt;选项&gt; 传递给链接器。"></a>将逗号分隔的 &lt;选项&gt; 传递给链接器。</h4><h3 id="Xassembler-lt-参数-gt"><a href="#Xassembler-lt-参数-gt" class="headerlink" title="-Xassembler &lt;参数&gt;"></a>-Xassembler &lt;参数&gt;</h3><h4 id="将-lt-参数-gt-传递给汇编器。"><a href="#将-lt-参数-gt-传递给汇编器。" class="headerlink" title="将 &lt;参数&gt; 传递给汇编器。"></a>将 &lt;参数&gt; 传递给汇编器。</h4><h3 id="Xpreprocessor-lt-参数-gt"><a href="#Xpreprocessor-lt-参数-gt" class="headerlink" title="-Xpreprocessor &lt;参数&gt;"></a>-Xpreprocessor &lt;参数&gt;</h3><h4 id="将-lt-参数-gt-传递给预处理器。"><a href="#将-lt-参数-gt-传递给预处理器。" class="headerlink" title="将 &lt;参数&gt; 传递给预处理器。"></a>将 &lt;参数&gt; 传递给预处理器。</h4><h3 id="Xlinker-lt-参数-gt"><a href="#Xlinker-lt-参数-gt" class="headerlink" title="-Xlinker &lt;参数&gt;"></a>-Xlinker &lt;参数&gt;</h3><h4 id="将-lt-参数-gt-传递给链接器。"><a href="#将-lt-参数-gt-传递给链接器。" class="headerlink" title="将 &lt;参数&gt; 传递给链接器。"></a>将 &lt;参数&gt; 传递给链接器。</h4><h3 id="save-temps"><a href="#save-temps" class="headerlink" title="-save-temps"></a>-save-temps</h3><h4 id="不删除中间文件。"><a href="#不删除中间文件。" class="headerlink" title="不删除中间文件。"></a>不删除中间文件。</h4><h3 id="save-temps-lt-参数-gt"><a href="#save-temps-lt-参数-gt" class="headerlink" title="-save-temps=&lt;参数&gt;"></a>-save-temps=&lt;参数&gt;</h3><h4 id="不删除中间文件。-1"><a href="#不删除中间文件。-1" class="headerlink" title="不删除中间文件。"></a>不删除中间文件。</h4><h3 id="no-canonical-prefixes"><a href="#no-canonical-prefixes" class="headerlink" title="-no-canonical-prefixes"></a>-no-canonical-prefixes</h3><h4 id="生成其他-gcc-组件的相对路径时不生成规范化的前缀。"><a href="#生成其他-gcc-组件的相对路径时不生成规范化的前缀。" class="headerlink" title="生成其他 gcc 组件的相对路径时不生成规范化的前缀。"></a>生成其他 gcc 组件的相对路径时不生成规范化的前缀。</h4><h3 id="pipe"><a href="#pipe" class="headerlink" title="-pipe"></a>-pipe</h3><h4 id="使用管道代替临时文件。"><a href="#使用管道代替临时文件。" class="headerlink" title="使用管道代替临时文件。"></a>使用管道代替临时文件。</h4><h3 id="time"><a href="#time" class="headerlink" title="-time"></a>-time</h3><h4 id="为每个子进程计时。"><a href="#为每个子进程计时。" class="headerlink" title="为每个子进程计时。"></a>为每个子进程计时。</h4><h3 id="specs-lt-文件-gt"><a href="#specs-lt-文件-gt" class="headerlink" title="-specs=&lt;文件&gt;"></a>-specs=&lt;文件&gt;</h3><h4 id="用-lt-文件-gt-的内容覆盖内建的-specs-文件。"><a href="#用-lt-文件-gt-的内容覆盖内建的-specs-文件。" class="headerlink" title="用 &lt;文件&gt; 的内容覆盖内建的 specs 文件。"></a>用 &lt;文件&gt; 的内容覆盖内建的 specs 文件。</h4><h3 id="std-lt-标准-gt"><a href="#std-lt-标准-gt" class="headerlink" title="-std=&lt;标准&gt;"></a>-std=&lt;标准&gt;</h3><h4 id="假定输入源文件遵循给定的标准。"><a href="#假定输入源文件遵循给定的标准。" class="headerlink" title="假定输入源文件遵循给定的标准。"></a>假定输入源文件遵循给定的标准。</h4><h3 id="–sysroot-lt-目录-gt"><a href="#–sysroot-lt-目录-gt" class="headerlink" title="–sysroot=&lt;目录&gt;"></a>–sysroot=&lt;目录&gt;</h3><h4 id="将-lt-目录-gt-作为头文件和库文件的根目录。"><a href="#将-lt-目录-gt-作为头文件和库文件的根目录。" class="headerlink" title="将 &lt;目录&gt; 作为头文件和库文件的根目录。"></a>将 &lt;目录&gt; 作为头文件和库文件的根目录。</h4><h3 id="B-lt-目录-gt"><a href="#B-lt-目录-gt" class="headerlink" title="-B &lt;目录&gt;"></a>-B &lt;目录&gt;</h3><h4 id="将-lt-目录-gt-添加到编译器的搜索路径中。"><a href="#将-lt-目录-gt-添加到编译器的搜索路径中。" class="headerlink" title="将 &lt;目录&gt; 添加到编译器的搜索路径中。"></a>将 &lt;目录&gt; 添加到编译器的搜索路径中。</h4><h3 id="v"><a href="#v" class="headerlink" title="-v"></a>-v</h3><h4 id="显示编译器调用的程序。"><a href="#显示编译器调用的程序。" class="headerlink" title="显示编译器调用的程序。"></a>显示编译器调用的程序。</h4><h3 id=""><a href="#" class="headerlink" title="-"></a>-</h3><h4 id="与-v-类似，但选项被引号括住，并且不执行命令。"><a href="#与-v-类似，但选项被引号括住，并且不执行命令。" class="headerlink" title="与 -v 类似，但选项被引号括住，并且不执行命令。"></a>与 -v 类似，但选项被引号括住，并且不执行命令。</h4><h3 id="E"><a href="#E" class="headerlink" title="-E"></a>-E</h3><h4 id="仅作预处理，不进行编译、汇编或链接。"><a href="#仅作预处理，不进行编译、汇编或链接。" class="headerlink" title="仅作预处理，不进行编译、汇编或链接。"></a>仅作预处理，不进行编译、汇编或链接。</h4><h3 id="S"><a href="#S" class="headerlink" title="-S"></a>-S</h3><h4 id="编译到汇编语言，不进行汇编和链接，"><a href="#编译到汇编语言，不进行汇编和链接，" class="headerlink" title="编译到汇编语言，不进行汇编和链接，"></a>编译到汇编语言，不进行汇编和链接，</h4><h3 id="c"><a href="#c" class="headerlink" title="-c"></a>-c</h3><h4 id="编译、汇编到目标代码，不进行链接。"><a href="#编译、汇编到目标代码，不进行链接。" class="headerlink" title="编译、汇编到目标代码，不进行链接。"></a>编译、汇编到目标代码，不进行链接。</h4><h3 id="o-lt-文件-gt"><a href="#o-lt-文件-gt" class="headerlink" title="-o &lt;文件&gt;"></a>-o &lt;文件&gt;</h3><h4 id="输出到-lt-文件-gt-。"><a href="#输出到-lt-文件-gt-。" class="headerlink" title="输出到 &lt;文件&gt;。"></a>输出到 &lt;文件&gt;。</h4><h3 id="pie"><a href="#pie" class="headerlink" title="-pie"></a>-pie</h3><h4 id="生成位置无关可执行文件。"><a href="#生成位置无关可执行文件。" class="headerlink" title="生成位置无关可执行文件。"></a>生成位置无关可执行文件。</h4><h3 id="shared"><a href="#shared" class="headerlink" title="-shared"></a>-shared</h3><h4 id="生成一个共享库。"><a href="#生成一个共享库。" class="headerlink" title="生成一个共享库。"></a>生成一个共享库。</h4><h3 id="x-lt-语言-gt"><a href="#x-lt-语言-gt" class="headerlink" title="-x &lt;语言&gt;"></a>-x &lt;语言&gt;</h3><h4 id="指定其后输入文件的语言。允许的语言包括：c、c-、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。"><a href="#指定其后输入文件的语言。允许的语言包括：c、c-、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。" class="headerlink" title="指定其后输入文件的语言。允许的语言包括：c、c++、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。"></a>指定其后输入文件的语言。允许的语言包括：c、c++、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。</h4><h4 id="以-g、-f、-m、-O、-W-或-–param-开头的选项将由-gcc-自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用-W-lt-字母-gt-选项。"><a href="#以-g、-f、-m、-O、-W-或-–param-开头的选项将由-gcc-自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用-W-lt-字母-gt-选项。" class="headerlink" title="以 -g、-f、-m、-O、-W 或 –param 开头的选项将由 gcc 自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用 -W&lt;字母&gt; 选项。"></a>以 -g、-f、-m、-O、-W 或 –param 开头的选项将由 gcc 自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用 -W&lt;字母&gt; 选项。</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/29/CET4-2017-09-29-word-list15/" rel="next" title="Word List 15">
+                <i class="fa fa-chevron-left"></i> Word List 15
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/02/Linux-2017-10-02-BTRFS文件系统安装ArchLinux/" rel="prev" title="BTRFS文件系统安装ArchLinux">
+                BTRFS文件系统安装ArchLinux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Try" />
+            
+              <p class="site-author-name" itemprop="name">Try</p>
+              <p class="site-description motion-element" itemprop="description">The steps you take don’t need to be big,they just need to take you in the right direction.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-exit-codes"><span class="nav-number">1.</span> <span class="nav-text">pass-exit-codes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在某一阶段退出时返回其中最高的错误码。"><span class="nav-number">1.1.</span> <span class="nav-text">在某一阶段退出时返回其中最高的错误码。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–help"><span class="nav-number">2.</span> <span class="nav-text">–help</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示此帮助说明。"><span class="nav-number">2.1.</span> <span class="nav-text">显示此帮助说明。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–target-help"><span class="nav-number">3.</span> <span class="nav-text">–target-help</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示目标机器特定的命令行选项。"><span class="nav-number">3.1.</span> <span class="nav-text">显示目标机器特定的命令行选项。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–help-common-optimizers-params-targetwarnings-joined-separate-undocumented-。"><span class="nav-number">4.</span> <span class="nav-text">–help={common|optimizers|params|targetwarnings|[^]{joined|separate|undocumented}}。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示特定类型的命令行选项。（使用‘-v-–help’显示子进程的命令行参数）。"><span class="nav-number">4.1.</span> <span class="nav-text">显示特定类型的命令行选项。（使用‘-v –help’显示子进程的命令行参数）。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–version"><span class="nav-number">5.</span> <span class="nav-text">–version</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器版本信息。"><span class="nav-number">5.1.</span> <span class="nav-text">显示编译器版本信息。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dumpspecs"><span class="nav-number">6.</span> <span class="nav-text">-dumpspecs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示所有内建-spec-字符串。"><span class="nav-number">6.1.</span> <span class="nav-text">显示所有内建 spec 字符串。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dumpversion"><span class="nav-number">7.</span> <span class="nav-text">-dumpversion</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器的版本号。"><span class="nav-number">7.1.</span> <span class="nav-text">显示编译器的版本号。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dumpmachine"><span class="nav-number">8.</span> <span class="nav-text">-dumpmachine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器的目标处理器。"><span class="nav-number">8.1.</span> <span class="nav-text">显示编译器的目标处理器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-search-dirs"><span class="nav-number">9.</span> <span class="nav-text">-print-search-dirs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器的搜索路径。"><span class="nav-number">9.1.</span> <span class="nav-text">显示编译器的搜索路径。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-libgcc-file-name"><span class="nav-number">10.</span> <span class="nav-text">-print-libgcc-file-name</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器伴随库的名称。"><span class="nav-number">10.1.</span> <span class="nav-text">显示编译器伴随库的名称。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-file-name-lt-库-gt"><span class="nav-number">11.</span> <span class="nav-text">-print-file-name=&lt;库&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示-lt-库-gt-的完整路径。"><span class="nav-number">11.1.</span> <span class="nav-text">显示 &lt;库&gt; 的完整路径。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-prog-name-lt-程序-gt"><span class="nav-number">12.</span> <span class="nav-text">-print-prog-name=&lt;程序&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器组件-lt-程序-gt-的完整路径。"><span class="nav-number">12.1.</span> <span class="nav-text">显示编译器组件 &lt;程序&gt; 的完整路径。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-multiarch"><span class="nav-number">13.</span> <span class="nav-text">-print-multiarch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示目标的标准-GNU-三元组（被用于库路径的一部分）。"><span class="nav-number">13.1.</span> <span class="nav-text">显示目标的标准 GNU 三元组（被用于库路径的一部分）。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-multi-directory"><span class="nav-number">14.</span> <span class="nav-text">-print-multi-directory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示不同版本-libgcc-的根目录。"><span class="nav-number">14.1.</span> <span class="nav-text">显示不同版本 libgcc 的根目录。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-multi-lib"><span class="nav-number">15.</span> <span class="nav-text">-print-multi-lib</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示命令行选项和多个版本库搜索路径间的映射。"><span class="nav-number">15.1.</span> <span class="nav-text">显示命令行选项和多个版本库搜索路径间的映射。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-multi-os-directory"><span class="nav-number">16.</span> <span class="nav-text">-print-multi-os-directory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示操作系统库的相对路径。"><span class="nav-number">16.1.</span> <span class="nav-text">显示操作系统库的相对路径。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-sysroot"><span class="nav-number">17.</span> <span class="nav-text">-print-sysroot</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示目标库目录。"><span class="nav-number">17.1.</span> <span class="nav-text">显示目标库目录。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#print-sysroot-headers-suffix"><span class="nav-number">18.</span> <span class="nav-text">-print-sysroot-headers-suffix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示用于寻找头文件的-sysroot-后缀。"><span class="nav-number">18.1.</span> <span class="nav-text">显示用于寻找头文件的 sysroot 后缀。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wa-lt-选项-gt"><span class="nav-number">19.</span> <span class="nav-text">-Wa,&lt;选项&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将逗号分隔的-lt-选项-gt-传递给汇编器。"><span class="nav-number">19.1.</span> <span class="nav-text">将逗号分隔的 &lt;选项&gt; 传递给汇编器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wp-lt-选项-gt"><span class="nav-number">20.</span> <span class="nav-text">-Wp,&lt;选项&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将逗号分隔的-lt-选项-gt-传递给预处理器。"><span class="nav-number">20.1.</span> <span class="nav-text">将逗号分隔的 &lt;选项&gt; 传递给预处理器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wl-lt-选项-gt"><span class="nav-number">21.</span> <span class="nav-text">-Wl,&lt;选项&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将逗号分隔的-lt-选项-gt-传递给链接器。"><span class="nav-number">21.1.</span> <span class="nav-text">将逗号分隔的 &lt;选项&gt; 传递给链接器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xassembler-lt-参数-gt"><span class="nav-number">22.</span> <span class="nav-text">-Xassembler &lt;参数&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-lt-参数-gt-传递给汇编器。"><span class="nav-number">22.1.</span> <span class="nav-text">将 &lt;参数&gt; 传递给汇编器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xpreprocessor-lt-参数-gt"><span class="nav-number">23.</span> <span class="nav-text">-Xpreprocessor &lt;参数&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-lt-参数-gt-传递给预处理器。"><span class="nav-number">23.1.</span> <span class="nav-text">将 &lt;参数&gt; 传递给预处理器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xlinker-lt-参数-gt"><span class="nav-number">24.</span> <span class="nav-text">-Xlinker &lt;参数&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-lt-参数-gt-传递给链接器。"><span class="nav-number">24.1.</span> <span class="nav-text">将 &lt;参数&gt; 传递给链接器。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save-temps"><span class="nav-number">25.</span> <span class="nav-text">-save-temps</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不删除中间文件。"><span class="nav-number">25.1.</span> <span class="nav-text">不删除中间文件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save-temps-lt-参数-gt"><span class="nav-number">26.</span> <span class="nav-text">-save-temps=&lt;参数&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不删除中间文件。-1"><span class="nav-number">26.1.</span> <span class="nav-text">不删除中间文件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-canonical-prefixes"><span class="nav-number">27.</span> <span class="nav-text">-no-canonical-prefixes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成其他-gcc-组件的相对路径时不生成规范化的前缀。"><span class="nav-number">27.1.</span> <span class="nav-text">生成其他 gcc 组件的相对路径时不生成规范化的前缀。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe"><span class="nav-number">28.</span> <span class="nav-text">-pipe</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用管道代替临时文件。"><span class="nav-number">28.1.</span> <span class="nav-text">使用管道代替临时文件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#time"><span class="nav-number">29.</span> <span class="nav-text">-time</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为每个子进程计时。"><span class="nav-number">29.1.</span> <span class="nav-text">为每个子进程计时。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#specs-lt-文件-gt"><span class="nav-number">30.</span> <span class="nav-text">-specs=&lt;文件&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用-lt-文件-gt-的内容覆盖内建的-specs-文件。"><span class="nav-number">30.1.</span> <span class="nav-text">用 &lt;文件&gt; 的内容覆盖内建的 specs 文件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-lt-标准-gt"><span class="nav-number">31.</span> <span class="nav-text">-std=&lt;标准&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#假定输入源文件遵循给定的标准。"><span class="nav-number">31.1.</span> <span class="nav-text">假定输入源文件遵循给定的标准。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–sysroot-lt-目录-gt"><span class="nav-number">32.</span> <span class="nav-text">–sysroot=&lt;目录&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-lt-目录-gt-作为头文件和库文件的根目录。"><span class="nav-number">32.1.</span> <span class="nav-text">将 &lt;目录&gt; 作为头文件和库文件的根目录。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-lt-目录-gt"><span class="nav-number">33.</span> <span class="nav-text">-B &lt;目录&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-lt-目录-gt-添加到编译器的搜索路径中。"><span class="nav-number">33.1.</span> <span class="nav-text">将 &lt;目录&gt; 添加到编译器的搜索路径中。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v"><span class="nav-number">34.</span> <span class="nav-text">-v</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示编译器调用的程序。"><span class="nav-number">34.1.</span> <span class="nav-text">显示编译器调用的程序。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">35.</span> <span class="nav-text">-</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#与-v-类似，但选项被引号括住，并且不执行命令。"><span class="nav-number">35.1.</span> <span class="nav-text">与 -v 类似，但选项被引号括住，并且不执行命令。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E"><span class="nav-number">36.</span> <span class="nav-text">-E</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#仅作预处理，不进行编译、汇编或链接。"><span class="nav-number">36.1.</span> <span class="nav-text">仅作预处理，不进行编译、汇编或链接。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S"><span class="nav-number">37.</span> <span class="nav-text">-S</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译到汇编语言，不进行汇编和链接，"><span class="nav-number">37.1.</span> <span class="nav-text">编译到汇编语言，不进行汇编和链接，</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c"><span class="nav-number">38.</span> <span class="nav-text">-c</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译、汇编到目标代码，不进行链接。"><span class="nav-number">38.1.</span> <span class="nav-text">编译、汇编到目标代码，不进行链接。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#o-lt-文件-gt"><span class="nav-number">39.</span> <span class="nav-text">-o &lt;文件&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输出到-lt-文件-gt-。"><span class="nav-number">39.1.</span> <span class="nav-text">输出到 &lt;文件&gt;。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pie"><span class="nav-number">40.</span> <span class="nav-text">-pie</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成位置无关可执行文件。"><span class="nav-number">40.1.</span> <span class="nav-text">生成位置无关可执行文件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shared"><span class="nav-number">41.</span> <span class="nav-text">-shared</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成一个共享库。"><span class="nav-number">41.1.</span> <span class="nav-text">生成一个共享库。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#x-lt-语言-gt"><span class="nav-number">42.</span> <span class="nav-text">-x &lt;语言&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指定其后输入文件的语言。允许的语言包括：c、c-、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。"><span class="nav-number">42.1.</span> <span class="nav-text">指定其后输入文件的语言。允许的语言包括：c、c++、assembler、none‘none’意味着恢复默认行为，即根据文件的扩展名猜测源文件的语言。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以-g、-f、-m、-O、-W-或-–param-开头的选项将由-gcc-自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用-W-lt-字母-gt-选项。"><span class="nav-number">42.2.</span> <span class="nav-text">以 -g、-f、-m、-O、-W 或 –param 开头的选项将由 gcc 自动传递给其调用的不同子进程。若要向这些进程传递其他选项，必须使用 -W&lt;字母&gt; 选项。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Try</span>
+
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">Everything is going on, but don't give up trying.</span>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

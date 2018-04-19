@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 设置进程屏蔽字-函数umaskumask函数为进程设置文件模式创建屏蔽字，并返回之前的值.(没有出错返回)123#include &amp;lt;sys/stat.h&amp;gt;mode_t umask(mode_t cmask); 参数 cmask的 由以下9个常量中的若干个按位”或”构成。st_mode屏蔽   |    含义———|——— S_IRUSR    |  用户读 S_IWUSR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件和目录的常用操作2">
+<meta property="og:url" content="http://yoursite.com/2017/11/04/Linux-C-FileIO-2017-11-04-文件和目录的其他操作2/index.html">
+<meta property="og:site_name" content="Try&#39;s Note">
+<meta property="og:description" content="1. 设置进程屏蔽字-函数umaskumask函数为进程设置文件模式创建屏蔽字，并返回之前的值.(没有出错返回)123#include &amp;lt;sys/stat.h&amp;gt;mode_t umask(mode_t cmask); 参数 cmask的 由以下9个常量中的若干个按位”或”构成。st_mode屏蔽   |    含义———|——— S_IRUSR    |  用户读 S_IWUSR">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-19T03:01:05.855Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件和目录的常用操作2">
+<meta name="twitter:description" content="1. 设置进程屏蔽字-函数umaskumask函数为进程设置文件模式创建屏蔽字，并返回之前的值.(没有出错返回)123#include &amp;lt;sys/stat.h&amp;gt;mode_t umask(mode_t cmask); 参数 cmask的 由以下9个常量中的若干个按位”或”构成。st_mode屏蔽   |    含义———|——— S_IRUSR    |  用户读 S_IWUSR">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/04/Linux-C-FileIO-2017-11-04-文件和目录的其他操作2/"/>
+
+
+
+
+
+  <title>文件和目录的常用操作2 | Try's Note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Try's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+<div>
+</div
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/04/Linux-C-FileIO-2017-11-04-文件和目录的其他操作2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Try">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Try's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件和目录的常用操作2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T00:00:00+08:00">
+                2017-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-设置进程屏蔽字-函数umask"><a href="#1-设置进程屏蔽字-函数umask" class="headerlink" title="1. 设置进程屏蔽字-函数umask"></a>1. 设置进程屏蔽字-函数umask</h2><p>umask函数为进程设置文件模式创建屏蔽字，并返回之前的值.(没有出错返回)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line"></span><br><span class="line">mode_t umask(mode_t cmask);</span><br></pre></td></tr></table></figure></p>
+<p>参数 cmask的 由以下9个常量中的若干个按位”或”构成。<br>st_mode屏蔽   |    含义<br>———|———<br> S_IRUSR    |  用户读<br> S_IWUSR    |   用户写<br>S_IXUSR     |   用户执行<br>S_IRGRP     |    组读<br>S_IWGRP     |    组写<br>S_IXGRP     |    组执行<br>S_IROTH     |    其他读<br>S_IWOTH     |    其他写<br>S_IXOTH     |   其他执行</p>
+<p>用户可以通过设置umask值以控制他们创建文件的默认权限。<br>屏蔽为|含义<br>—–|——–<br>0400|用户读<br>0200|用户写<br>0100|用户执行<br>0040|组读<br>0020|组写<br>0010|组执行<br>0004|其他读<br>0002|其他写<br>0001|其他执行</p>
+<h2 id="2-改变文件访问权限-函数chmod、fchmod和fchmodat"><a href="#2-改变文件访问权限-函数chmod、fchmod和fchmodat" class="headerlink" title="2. 改变文件访问权限-函数chmod、fchmod和fchmodat"></a>2. 改变文件访问权限-函数chmod、fchmod和fchmodat</h2><p>这3个函数用来改变现有文件的访问权限。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line"></span><br><span class="line">int chmod(const char *path, mode_t mode);</span><br><span class="line">int fchmod(int fildes, mode_t mode);</span><br><span class="line">int fchmodat(int dirfd, const char *pathname, mode_t mode, int flags);</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-1-chmod-函数在指定的文件上进行操作"><a href="#2-1-chmod-函数在指定的文件上进行操作" class="headerlink" title="2.1 chmod 函数在指定的文件上进行操作"></a>2.1 chmod 函数在指定的文件上进行操作</h3><h3 id="2-2-fchmod函数对已打开的文件进行操作"><a href="#2-2-fchmod函数对已打开的文件进行操作" class="headerlink" title="2.2 fchmod函数对已打开的文件进行操作"></a>2.2 fchmod函数对已打开的文件进行操作</h3><h3 id="2-3-参数mode的常量按位或"><a href="#2-3-参数mode的常量按位或" class="headerlink" title="2.3 参数mode的常量按位或"></a>2.3 参数mode的常量按位或</h3><table>
+<thead>
+<tr>
+<th>mode</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S_ISUID</td>
+<td>执行时设置用户ID</td>
+</tr>
+<tr>
+<td>S_ISGID</td>
+<td>执行时设置组ID</td>
+</tr>
+<tr>
+<td>S_ISVTX</td>
+<td>保存正文(粘着位)</td>
+</tr>
+<tr>
+<td>S_IRWXU</td>
+<td>用户(所有者)读、写和执行</td>
+</tr>
+<tr>
+<td>S_IRUSE</td>
+<td>用户(所有者)读</td>
+</tr>
+<tr>
+<td>S_IWUSR</td>
+<td>用户(所有者)写</td>
+</tr>
+<tr>
+<td>S_IXUSR</td>
+<td>用户(所有者)执行</td>
+</tr>
+<tr>
+<td>S_IRWXG</td>
+<td>组读、写和执行</td>
+</tr>
+<tr>
+<td>S_IRGRP</td>
+<td>组读</td>
+</tr>
+<tr>
+<td>S_IWGRP</td>
+<td>组写</td>
+</tr>
+<tr>
+<td>S_IXGRP</td>
+<td>组执行</td>
+</tr>
+<tr>
+<td>S_IRWXO</td>
+<td>其他读、写和执行</td>
+</tr>
+<tr>
+<td>S_IROTH</td>
+<td>其他读</td>
+</tr>
+<tr>
+<td>S_IWOTH</td>
+<td>其他写</td>
+</tr>
+<tr>
+<td>S_IXOTH</td>
+<td>其他执行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-改变文件所属者-组-函数chown、fchown、fchownat和lchown"><a href="#3-改变文件所属者-组-函数chown、fchown、fchownat和lchown" class="headerlink" title="3. 改变文件所属者(组)-函数chown、fchown、fchownat和lchown"></a>3. 改变文件所属者(组)-函数chown、fchown、fchownat和lchown</h2><p>用于改变文件的用户ID和组ID.如果2个参数owner或group中的任意一个是-1,则对应的ID不变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int chown(const char *path, uid_t owner, gid_t group);</span><br><span class="line">int fchown(int fildes, uid_t owner, gid_t group);</span><br><span class="line">int fchownat(int dirfd, const char *pathname,uid_t owner, gid_t group, int flags);</span><br><span class="line">int lchown(const char *path, uid_t owner, gid_t group);</span><br></pre></td></tr></table></figure></p>
+<p>4个函数的返回值：成功返回0，出错返回-1</p>
+<p>除了所引用的文件是符号链接以外，这4个函数的操作类似。在符号链接情况下，lchown和fchownat更改符号链接本身的所有者，而不是该符号链接所指向的文件的所有者。</p>
+<h2 id="4-文件长度"><a href="#4-文件长度" class="headerlink" title="4. 文件长度"></a>4. 文件长度</h2><p>stat结构成员st_size表示以字节为单位的文件长度。(只对普通文件、目录文件和符号链接有意义)</p>
+<h2 id="5-文件截断函数-truncate和ftruncate"><a href="#5-文件截断函数-truncate和ftruncate" class="headerlink" title="5. 文件截断函数-truncate和ftruncate"></a>5. 文件截断函数-truncate和ftruncate</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int truncate(const char *path, off_t length);</span><br><span class="line">int ftruncate(int fildes, off_t length);</span><br></pre></td></tr></table></figure>
+<p>成功返回0,出错返回-1。</p>
+<p>这2个函数将一个现有文件长度截断为length.如果该文件以前的长度大于length,则超过length以外的数据就不能再访问。如果以前的文件长度小于length，文件长度将增加，在以前的文件尾端和新的文件尾端之间的数据将读作0。</p>
+<h2 id="6-创建删除链接-函数link、linkat、unlink、unlinkat和remove"><a href="#6-创建删除链接-函数link、linkat、unlink、unlinkat和remove" class="headerlink" title="6. 创建删除链接-函数link、linkat、unlink、unlinkat和remove"></a>6. 创建删除链接-函数link、linkat、unlink、unlinkat和remove</h2><h3 id="6-1-函数link和linkat用来创建一个指向现有文件的链接。"><a href="#6-1-函数link和linkat用来创建一个指向现有文件的链接。" class="headerlink" title="6.1 函数link和linkat用来创建一个指向现有文件的链接。"></a>6.1 函数link和linkat用来创建一个指向现有文件的链接。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int link(const char *existingpath, const char *newpath);</span><br><span class="line">int linkat(int olddirfd, const char *oldpath,int newdirfd, const char *newpath, int flags);</span><br></pre></td></tr></table></figure>
+<p>成功返回0，出错返回-1.</p>
+<p>这2个函数创建一个新目录项 newpath,它引用现有文件existingpath.</p>
+<p>当现有文件是符号链接时，flags参数控制linkat函数是创建指向现有符号链接的链接，还是创建指向现有符号链接指向的文件的链接。如果在flag参数中设置了AT_SYMLINK_FOLLOW标志，就创建指向符号链接目标的链接。</p>
+<h3 id="6-2-函数unlink和unlinkat用来删除目录项"><a href="#6-2-函数unlink和unlinkat用来删除目录项" class="headerlink" title="6.2 函数unlink和unlinkat用来删除目录项"></a>6.2 函数unlink和unlinkat用来删除目录项</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int unlink(const char *path);</span><br><span class="line">int unlinkat(int dirfd, const char *pathname, int flags);</span><br></pre></td></tr></table></figure>
+<p>成功返回0，出错返回-1</p>
+<p>这2个函数删除目录项，并将path所引用文件的链接计数减一。只有当链接计数达到0时，该文件的内容才可被删除。(有进程打开了该文件时，其内容也不能删除。)删除一个文件时，内核先检查打开该文件的进程个数，如果这个计数达到0，内核再去检查其链接计数，如果计数也是0，那么就删除该文件的内容。</p>
+<h2 id="7-重命名-移动-函数rename和renameat"><a href="#7-重命名-移动-函数rename和renameat" class="headerlink" title="7. 重命名(移动)-函数rename和renameat"></a>7. 重命名(移动)-函数rename和renameat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int rename(const char *oldpath, const char *newpath);</span><br><span class="line"> int renameat(int olddirfd, const char *oldpath, int newdirfd, const char *newpath);</span><br></pre></td></tr></table></figure>
+<p>成功返回0，出错返回-1。</p>
+<p>这2个函数用来重命名文件或目录。</p>
+<h2 id="8-创建和读取符号链接-函数symlink和symlinkat"><a href="#8-创建和读取符号链接-函数symlink和symlinkat" class="headerlink" title="8. 创建和读取符号链接-函数symlink和symlinkat"></a>8. 创建和读取符号链接-函数symlink和symlinkat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int symlink(const char *oldpath, const char *newpath);</span><br><span class="line">int symlinkat(const char *oldpath, int newdirfd, const char *newpath);</span><br></pre></td></tr></table></figure>
+<p>成功返回0，出错返回-1.</p>
+<p>这2个函数用来创建一个符号链接。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t readlink(const char *restrict path, char *restrict buf, size_t bufsize);</span><br><span class="line">int readlinkat(int dirfd, const char *pathname, char *buf, size_t bufsiz);</span><br></pre></td></tr></table></figure></p>
+<p>成功返回读取字节数，出错返回-1.</p>
+<p>两个函数组合了open、read和close的所有操作。成功执行，则返回读入字节数。在buf中返回的符号链接的内容不以null字节终止。</p>
+<h2 id="9-创建和删除目录-函数mkdir和mkdirat"><a href="#9-创建和删除目录-函数mkdir和mkdirat" class="headerlink" title="9. 创建和删除目录-函数mkdir和mkdirat"></a>9. 创建和删除目录-函数mkdir和mkdirat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line"></span><br><span class="line">int mkdir(const char *path, mode_t mode);</span><br><span class="line">int mkdirat(int dirfd, const char *pathname, mode_t mode);</span><br></pre></td></tr></table></figure>
+<p>成功返回0，出错返回-1.</p>
+<p>这2个函数创建一个新的空目录。其中,.和..目录项时自动创建的。</p>
+<h3 id="10-读目录-函数opendir和fopendir"><a href="#10-读目录-函数opendir和fopendir" class="headerlink" title="10. 读目录-函数opendir和fopendir"></a>10. 读目录-函数opendir和fopendir</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;dirent.h&gt;</span><br><span class="line"></span><br><span class="line">DIR *opendir(const char *name);</span><br><span class="line">DIR *fdopendir(int fd);</span><br></pre></td></tr></table></figure>
+<p>成功返回目录指针，出错返回-1.</p>
+<p>目录指针定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* This is the data type of directory stream objects.</span><br><span class="line">   The actual structure is opaque to users.  */</span><br><span class="line">typedef struct __dirstream DIR;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct __dirstream   </span><br><span class="line">   &#123;   </span><br><span class="line">    void *__fd;    </span><br><span class="line">    char *__data;    </span><br><span class="line">    int __entry_data;    </span><br><span class="line">    char *__ptr;    </span><br><span class="line">    int __entry_ptr;    </span><br><span class="line">    size_t __allocation;    </span><br><span class="line">    size_t __size;    </span><br><span class="line">    __libc_lock_define (, __lock)    </span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="11-更改进程工作目录-函数chdir和fchdir"><a href="#11-更改进程工作目录-函数chdir和fchdir" class="headerlink" title="11. 更改进程工作目录-函数chdir和fchdir"></a>11. 更改进程工作目录-函数chdir和fchdir</h3><p>每个进程都有一个当前工作目录，此目录时搜索所有相对路径名的起点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">int chdir(const char *path);</span><br><span class="line">int fchdir(int fd);</span><br></pre></td></tr></table></figure></p>
+<p>成功返回0，出错返回-1.</p>
+<p>当前工作目录时进程的一个属，它只影响调用chdir的进程本身，不影响其他进程。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/04/CET4-2017-11-04-word-list34/" rel="next" title="Word List 34">
+                <i class="fa fa-chevron-left"></i> Word List 34
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/05/CET4-2017-11-05-word-list35/" rel="prev" title="Word List 35">
+                Word List 35 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Try" />
+            
+              <p class="site-author-name" itemprop="name">Try</p>
+              <p class="site-description motion-element" itemprop="description">The steps you take don’t need to be big,they just need to take you in the right direction.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-设置进程屏蔽字-函数umask"><span class="nav-number">1.</span> <span class="nav-text">1. 设置进程屏蔽字-函数umask</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-改变文件访问权限-函数chmod、fchmod和fchmodat"><span class="nav-number">2.</span> <span class="nav-text">2. 改变文件访问权限-函数chmod、fchmod和fchmodat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-chmod-函数在指定的文件上进行操作"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 chmod 函数在指定的文件上进行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-fchmod函数对已打开的文件进行操作"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 fchmod函数对已打开的文件进行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-参数mode的常量按位或"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 参数mode的常量按位或</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-改变文件所属者-组-函数chown、fchown、fchownat和lchown"><span class="nav-number">3.</span> <span class="nav-text">3. 改变文件所属者(组)-函数chown、fchown、fchownat和lchown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-文件长度"><span class="nav-number">4.</span> <span class="nav-text">4. 文件长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-文件截断函数-truncate和ftruncate"><span class="nav-number">5.</span> <span class="nav-text">5. 文件截断函数-truncate和ftruncate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-创建删除链接-函数link、linkat、unlink、unlinkat和remove"><span class="nav-number">6.</span> <span class="nav-text">6. 创建删除链接-函数link、linkat、unlink、unlinkat和remove</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-函数link和linkat用来创建一个指向现有文件的链接。"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 函数link和linkat用来创建一个指向现有文件的链接。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-函数unlink和unlinkat用来删除目录项"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 函数unlink和unlinkat用来删除目录项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重命名-移动-函数rename和renameat"><span class="nav-number">7.</span> <span class="nav-text">7. 重命名(移动)-函数rename和renameat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-创建和读取符号链接-函数symlink和symlinkat"><span class="nav-number">8.</span> <span class="nav-text">8. 创建和读取符号链接-函数symlink和symlinkat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-创建和删除目录-函数mkdir和mkdirat"><span class="nav-number">9.</span> <span class="nav-text">9. 创建和删除目录-函数mkdir和mkdirat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-读目录-函数opendir和fopendir"><span class="nav-number">9.1.</span> <span class="nav-text">10. 读目录-函数opendir和fopendir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-更改进程工作目录-函数chdir和fchdir"><span class="nav-number">9.2.</span> <span class="nav-text">11. 更改进程工作目录-函数chdir和fchdir</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Try</span>
+
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">Everything is going on, but don't give up trying.</span>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
